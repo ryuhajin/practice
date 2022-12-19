@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('start');
+            const input = document.querySelector('#todoinput');
+            const addButton = document.querySelector('#addTodo');
+            const todoList = document.querySelector('#todoList');
+            const alert = document.querySelector('span');
+
+            // add 버튼 동작
+            const add = () => {
+                if (input.value !== '') {
+                    const item = document.createElement('div');
+
+                    // check box
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+
+                    // delete
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.innerText = "Delete"
+
+                     // todo text
+                    const text = document.createElement('span');
+                    text.innerText = input.value;
+                    input.value = ''; // 투두 리스트 추가 후 인풋 텍스트 바 초기화
+
+                    item.appendChild(checkbox);
+                    item.appendChild(text);
+                    item.appendChild(deleteBtn);
+                    todoList.appendChild(item);
+
+                    // check box event register
+                    checkbox.addEventListener('change', (event) => {
+                        if (event.currentTarget.checked)
+                        {
+                            text.style.textDecoration = 'line-through';
+                        } else {
+                            text.style.textDecoration = 'none';
+                        }
+                    })
+
+                    // delete btn event register
+                    deleteBtn.addEventListener('click', (event) => {
+                        todoList.removeChild(event.currentTarget.parentElement)
+                    })
+                } else {
+                    alert('할 일을 입력해주세요');
+                }
+            }
+
+            addButton.addEventListener('click', add);
+        })
+    </script>
+</head>
+<body>
+    <h1>To Do List</h1>
+    <span></span><br>
+    <input id = "todoinput">
+    <button id = "addTodo">add</button>
+    <div id = "todoList"></div>
+</body>
+</html>
